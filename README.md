@@ -41,7 +41,7 @@ Make sure you have the following installed on your machine:
     ````bash
     php artisan key:generate
      ```
-    5 php artisan migrate --seed
+
     ````
 
 5. Start the development server:
