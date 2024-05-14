@@ -3,13 +3,12 @@ import { Head, usePage, Link, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-export default function Students({ auth }) {
-    const { students } = usePage().props;
-    
+export default function ClassIndex({ auth }) {
+    const { classes } = usePage().props;
 
-    const destroy = (studentId) => {
-        if (confirm("Are you sure you want to delete this student?")) {
-            router.delete(route("students.destroy", studentId));
+    const destroy = (classId) => {
+        if (confirm("Are you sure you want to delete this class?")) {
+            router.delete(route("classes.destroy", classId));
         }
     };
 
@@ -18,11 +17,11 @@ export default function Students({ auth }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Students
+                    Classes
                 </h2>
             }
         >
-            <Head title="Students" />
+            <Head title="Classes" />
 
             <div className="py-12">
                 <div className="max-w-8xl mx-auto sm:px-6 lg:px-8">
@@ -31,12 +30,12 @@ export default function Students({ auth }) {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-500 rounded-md focus:outline-none"
-                                    href={route("students.create")}
+                                    href={route("classes.create")}
                                 >
-                                    Add Student
+                                    Add Class
                                 </Link>
                                 <h3 className="text-lg font-semibold">
-                                    Students List
+                                    Classes List
                                 </h3>
                             </div>
                             <div className="flex flex-col mt-5">
@@ -49,61 +48,53 @@ export default function Students({ auth }) {
                                                         Name
                                                     </th>
                                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Email
+                                                        Description
                                                     </th>
                                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Phone
+                                                        Code
                                                     </th>
-                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Address
-                                                    </th>
-
                                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Actions
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200">
-                                                {students.map((student) => (
-                                                    <tr key={student.id}>
+                                                {classes.map((classItem) => (
+                                                    <tr key={classItem.id}>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            {student.name}
+                                                            {classItem.name}
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            {student.email}
+                                                            {
+                                                                classItem.description
+                                                            }
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            {student.phone}
-                                                        </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
-                                                            {student.address}
+                                                            {classItem.code}
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                             <Link
                                                                 href={route(
-                                                                    "students.edit",
-                                                                    student.id
+                                                                    "classes.edit",
+                                                                    classItem.id
                                                                 )}
                                                                 className="text-indigo-600 hover:text-indigo-900"
                                                             >
                                                                 <svg
-                                                                    class="h-6 w-6 text-blue-500 inline-block
-                                                                    hover:text-blue-700
-                                                                    "
+                                                                    className="h-6 w-6 text-blue-500 inline-block hover:text-blue-700"
                                                                     viewBox="0 0 24 24"
-                                                                    stroke-width="2"
+                                                                    strokeWidth="2"
                                                                     stroke="currentColor"
                                                                     fill="none"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
                                                                 >
-                                                                    {" "}
                                                                     <path
                                                                         stroke="none"
                                                                         d="M0 0h24v24H0z"
-                                                                    />{" "}
-                                                                    <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />{" "}
-                                                                    <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />{" "}
+                                                                    />
+                                                                    <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                                                                    <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
                                                                     <line
                                                                         x1="16"
                                                                         y1="5"
@@ -115,31 +106,28 @@ export default function Students({ auth }) {
                                                             <button
                                                                 onClick={() =>
                                                                     destroy(
-                                                                        student.id
+                                                                        classItem.id
                                                                     )
                                                                 }
                                                                 className="ml-4 text-red-600 hover:text-red-900"
                                                             >
                                                                 <svg
-                                                                    class="h-6 w-6 text-red-500 inline-block
-                                                                    hover:text-red-700
-                                                                    "
+                                                                    className="h-6 w-6 text-red-500 inline-block hover:text-red-700"
                                                                     viewBox="0 0 24 24"
                                                                     fill="none"
                                                                     stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
+                                                                    strokeWidth="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
                                                                 >
-                                                                    {" "}
-                                                                    <polyline points="3 6 5 6 21 6" />{" "}
-                                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{" "}
+                                                                    <polyline points="3 6 5 6 21 6" />
+                                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                                                                     <line
                                                                         x1="10"
                                                                         y1="11"
                                                                         x2="10"
                                                                         y2="17"
-                                                                    />{" "}
+                                                                    />
                                                                     <line
                                                                         x1="14"
                                                                         y1="11"
@@ -151,13 +139,13 @@ export default function Students({ auth }) {
                                                         </td>
                                                     </tr>
                                                 ))}
-                                                {!students.length && (
+                                                {!classes.length && (
                                                     <tr>
                                                         <td
                                                             colSpan="6"
                                                             className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"
                                                         >
-                                                            No students found.
+                                                            No classes found.
                                                         </td>
                                                     </tr>
                                                 )}

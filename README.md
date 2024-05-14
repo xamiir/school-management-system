@@ -42,6 +42,8 @@ Make sure you have the following installed on your machine:
     php artisan key:generate
      ```
 
+
+
     ````
 
 5. Start the development server:

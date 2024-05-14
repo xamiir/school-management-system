@@ -26,7 +26,7 @@ export default function Authenticated({ user, header, children }) {
                     </NavLink>
                     <ResponsiveNavLink
                         method="post"
-                        href={route("logout")}
+                        href={route("users.index")}
                         as="button"
                     >
                         <svg
@@ -45,7 +45,7 @@ export default function Authenticated({ user, header, children }) {
                         </svg>
                         Users
                     </ResponsiveNavLink>
-                    <ResponsiveNavLink href={route("products.index")}>
+                    <ResponsiveNavLink href={route("classes.index")}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

@@ -4,6 +4,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function CreateStudent() {
     const { auth } = usePage().props;
+    const { students } = usePage().props;
+    
     const { data, setData, errors, post } = useForm({
         name: "",
         email: "",

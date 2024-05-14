@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\classesController;
 use function Pest\Laravel\post;
 
 
@@ -17,12 +18,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('users', UserController::class);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('classes', classesController::class);
+    Route::post('class/{id}', [classesController::class, 'update'])->name('class.update');
+    Route::delete('class/{id}', [classesController::class, 'destroy'])->name('class.destroy');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('products', ProductController::class);
     Route::post('product/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
     Route::delete('product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
+
+
 
 // Route::get('/stdclass', [STDclassController::class, 'ListClass'])->name('stdclass.ListClass');
 
